@@ -8,32 +8,53 @@ using namespace SortLibrary;
 using namespace chrono;
 
 // la dimensione dei vettori viene inserita nella command line (inputCL)
+// primo argomento = dimensione vettore di interi
+// secondo argomento = dimensione vettore di stringhe.
+// Inserendo un solo argomento le due dimensioni saranno
+// identiche e pari a tale valore
 int main(int n, char** inputCL)
-{   // inizializziamo il seme utilizzando il tempo del computer
+{
+    // inizializziamo il seme utilizzando il tempo del computer
     // in modo da avere un risultato diverso ad ogni iterazione
     srand(unsigned(time(NULL)));
 
     const string alphabet = "qwertyuioplkjhgfdsazxcvbnm";
 
+    int dimI = 0;
+    int dimS = 0;
+
+    // l'input da command line deve essere un intero
+    if (n == 2){
+        dimI = stoi(inputCL[1]);
+        dimS = dimI;}
+
+    else if (n == 3){
+        dimI = stoi(inputCL[1]);
+        dimS = stoi(inputCL[2]);
+    }
+
+    else{
+        cerr<<"il numero di interi inseriti nella command line puo' essere solo 1 o 2"<<endl;
+        return 1;
+    }
+
+    cout<<"dimensione vettore di interi = "<<dimI<<endl<<endl;
+    cout<<"dimensione vettore di stringhe = "<<dimS<<endl<<endl;
+
     // dichiarazione dei vettori da ordinare
     vector<int> vi = {};
     vector<string> vs = {};
-
-    // l'input da comman line deve essere un intero
-    int dim = stoi(inputCL[1]);
-    cout<<"dimensione vettori = "<<dim<<endl<<endl;
-
-    vi.reserve(dim);
-    vs.reserve(dim);
+    vi.reserve(dimI);
+    vs.reserve(dimS);
 
     // generazione vettore numeri interi positivi casuali
-    for (int i=0; i<dim; i++){
+    for (int i=0; i<dimI; i++){
         vi.push_back(rand());
     }
 
     // generazione vettore di stringhe di lunghezza 3
     // composte dalle lettere (minuscole) dell'alfabeto
-    for (int i =0; i< dim; i++) {
+    for (int i =0; i< dimS; i++) {
         string s = "";
         for (int j=0; j<3; j++){
             int pos = rand() % 26;
@@ -49,10 +70,10 @@ int main(int n, char** inputCL)
     vector<string> vsB = {};
     vector<int> viM = {};
     vector<string> vsM = {};
-    viB.reserve(dim);
-    vsB.reserve(dim);
-    viM.reserve(dim);
-    vsM.reserve(dim);
+    viB.reserve(dimI);
+    vsB.reserve(dimS);
+    viM.reserve(dimI);
+    vsM.reserve(dimS);
     viB = vi;
     vsB = vs;
     viM = vi;
